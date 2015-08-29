@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="lunaeclipse_common.lua" />
+	<Script file="lunaeclipse_affliction.lua" />
+	<Script file="lunaeclipse_demonology.lua" />
+	<Script file="lunaeclipse_destruction.lua" />
+	<Script file="lunaeclipse.lua" />
+</Ui>

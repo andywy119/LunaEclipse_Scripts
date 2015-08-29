@@ -1,0 +1,51 @@
+<Bindings>
+	<Binding name="OPT_SINGLE_TARGET" header="GENERAL">
+		LunaEclipseScripts:Keybind("opt_single_target");
+	</Binding>
+	<Binding name="OPT_ENEMIES_TAGGED">
+		LunaEclipseScripts:Keybind("opt_enemies_tagged");
+	</Binding>
+	<Binding name="OPT_POTION">
+		LunaEclipseScripts:Keybind("opt_potion");
+	</Binding>
+	<Binding name="OPT_MELEE_RANGE">
+		LunaEclipseScripts:Keybind("opt_melee_range");
+	</Binding>
+	<Binding name="OPT_INTERRUPT">
+		LunaEclipseScripts:Keybind("opt_interrupt");
+	</Binding>
+
+	<Binding name="OPT_UNHOLY_BLIGHT" header="DEATH_KNIGHT">
+		LunaEclipseScripts:Keybind("opt_unholy_blight");
+	</Binding>
+	
+	<Binding name="OPT_MULTISHOT" header="HUNTER">
+		LunaEclipseScripts:Keybind("opt_multishot");
+	</Binding>
+	<Binding name="OPT_TRAP_LAUNCHER">
+		LunaEclipseScripts:Keybind("opt_trap_launcher");
+	</Binding>
+	<Binding name="OPT_STAMPEDE">
+		LunaEclipseScripts:Keybind("opt_stampede");
+	</Binding>
+	<Binding name="OPT_BEASTIAL_WRATH">
+		LunaEclipseScripts:Keybind("opt_beastial_wrath");
+	</Binding>
+
+	<Binding name="OPT_CHI_BURST" header="MONK">
+		LunaEclipseScripts:Keybind("opt_chi_burst");
+	</Binding>
+	<Binding name="OPT_BREWS">
+		LunaEclipseScripts:Keybind("opt_brews");
+	</Binding>
+	<Binding name="OPT_XUEN">
+		LunaEclipseScripts:Keybind("opt_xuen");
+	</Binding>
+	<Binding name="OPT_SEF">
+		LunaEclipseScripts:Keybind("opt_sef");
+	</Binding>
+
+	<Binding name="OPT_DEMONS" header="WARLOCK">
+		LunaEclipseScripts:Keybind("opt_demons");
+	</Binding>
+</Bindings>

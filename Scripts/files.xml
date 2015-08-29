@@ -1,0 +1,9 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Include file="DeathKnight\files.xml"/>
+	<Include file="Hunter\files.xml"/>
+	<Include file="Monk\files.xml"/>
+	<Include file="Warlock\files.xml"/>
+
+	<Script file="lunaeclipse_global.lua" />
+</Ui>

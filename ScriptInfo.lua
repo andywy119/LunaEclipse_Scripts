@@ -6,7 +6,7 @@ local ScriptInfo = LunaEclipseScripts:NewModule(moduleName);
 LunaEclipseScripts.ScriptInfo = ScriptInfo;
 
 -- Current WOW Version
-local CURRENT_WOW_VERSION = "6.2";
+local CURRENT_WOW_VERSION = select(4, GetBuildInfo());
 
 -- ClassID's
 local CLASS_WARRIOR = 1;
@@ -78,31 +78,31 @@ local WARRIOR_FURY = 72;
 local WARRIOR_PROTECTION = 73;
 
 -- Colour Codes
-local COLOUR_CODE_MESSAGE = "|cFF".."FFFF00";
-local COLOUR_CODE_INVALID = "|cFF".."FF0000";
-local COLOUR_CODE_VALID = "|cFF".."00FF00";
+local COLOUR_CODE_MESSAGE = string.join("", "|c", "FF", "FF", "FF", "00");
+local COLOUR_CODE_INVALID = string.join("", "|c", "FF", "FF", "00", "00");
+local COLOUR_CODE_VALID = string.join("", "|c", "FF", "00", "FF", "00");
 
 -- Class Hex Colours
 local CLASS_COLOUR_CODES = {};
 
-CLASS_COLOUR_CODES[CLASS_WARRIOR] = "|cFF".."C79C6E";
-CLASS_COLOUR_CODES[CLASS_PALADIN] = "|cFF".."F58CBA";
-CLASS_COLOUR_CODES[CLASS_HUNTER] = "|cFF".."ABD473";
-CLASS_COLOUR_CODES[CLASS_ROGUE] = "|cFF".."FFF569";
-CLASS_COLOUR_CODES[CLASS_PRIEST] = "|cFF".."FFFFFF";
-CLASS_COLOUR_CODES[CLASS_DEATHKNIGHT] = "|cFF".."C41F3B";
-CLASS_COLOUR_CODES[CLASS_SHAMAN] = "|cFF".."0070DE";
-CLASS_COLOUR_CODES[CLASS_MAGE] = "|cFF".."69CCF0";
-CLASS_COLOUR_CODES[CLASS_WARLOCK] = "|cFF".."9482C9";
-CLASS_COLOUR_CODES[CLASS_MONK] = "|cFF".."00FF96";
-CLASS_COLOUR_CODES[CLASS_DRUID] = "|cFF".."FF7D0A";
+CLASS_COLOUR_CODES[CLASS_WARRIOR] = string.join("", "|c", "FF", "C7", "9C", "6E");
+CLASS_COLOUR_CODES[CLASS_PALADIN] = string.join("", "|c", "FF", "F5", "8C", "BA");
+CLASS_COLOUR_CODES[CLASS_HUNTER] = string.join("", "|c", "FF", "AB", "D4", "73");
+CLASS_COLOUR_CODES[CLASS_ROGUE] = string.join("", "|c", "FF", "FF", "F5", "69");
+CLASS_COLOUR_CODES[CLASS_PRIEST] = string.join("", "|c", "FF", "FF", "FF", "FF");
+CLASS_COLOUR_CODES[CLASS_DEATHKNIGHT] = string.join("", "|c", "FF", "C4", "1F", "3B");
+CLASS_COLOUR_CODES[CLASS_SHAMAN] = string.join("", "|c", "FF", "00", "70", "DE");
+CLASS_COLOUR_CODES[CLASS_MAGE] = string.join("", "|c", "FF", "69", "CC", "F0");
+CLASS_COLOUR_CODES[CLASS_WARLOCK] = string.join("", "|c", "FF", "94", "82", "C9");
+CLASS_COLOUR_CODES[CLASS_MONK] = string.join("", "|c", "FF", "00", "FF", "96");
+CLASS_COLOUR_CODES[CLASS_DRUID] = string.join("", "|c", "FF", "FF", "7D", "0A");
 
 -- Guide Authors
 local GUIDE_AUTHOR = {};
 
 -- Death Knight Guide Authors
-GUIDE_AUTHOR[DEATHKNIGHT_FROST] = "Skullflower";
-GUIDE_AUTHOR[DEATHKNIGHT_UNHOLY] = "Skullflower";
+GUIDE_AUTHOR[DEATHKNIGHT_FROST] = "Tegu";
+GUIDE_AUTHOR[DEATHKNIGHT_UNHOLY] = "Tegu";
 
 -- Hunter Guide Authors
 GUIDE_AUTHOR[HUNTER_BEASTMASTERY] = "Azortharion";
@@ -119,8 +119,8 @@ GUIDE_AUTHOR[WARLOCK_DEMONOLOGY] = "Zagam";
 local GUIDE_LINK = {};
 
 -- Death Knight Guide Links
-GUIDE_LINK[DEATHKNIGHT_FROST] = "http://summonstone.com/deathknight/frost/";
-GUIDE_LINK[DEATHKNIGHT_UNHOLY] = "http://summonstone.com/deathknight/unholy/";
+GUIDE_LINK[DEATHKNIGHT_FROST] = "http://www.icy-veins.com/wow/frost-death-knight-pve-dps-guide";
+GUIDE_LINK[DEATHKNIGHT_UNHOLY] = "http://www.icy-veins.com/wow/unholy-death-knight-pve-dps-guide";
 
 -- Hunter Guide Links
 GUIDE_LINK[HUNTER_BEASTMASTERY] = "https://goo.gl/Ks7kPX";
@@ -136,63 +136,83 @@ GUIDE_LINK[WARLOCK_DEMONOLOGY] = "http://www.darkintentions.net/61-demonology-wa
 -- Guide Version
 local GUIDE_VERSION = {};
 
--- Death Knight Guide Versions
-GUIDE_VERSION[DEATHKNIGHT_FROST] = "6.2";
-GUIDE_VERSION[DEATHKNIGHT_UNHOLY] = "6.2";
+-- Death Knight Guide Interface Numbers
+GUIDE_VERSION[DEATHKNIGHT_FROST] = 60200;
+GUIDE_VERSION[DEATHKNIGHT_UNHOLY] = 60200;
 
--- Hunter Guide Versions
-GUIDE_VERSION[HUNTER_BEASTMASTERY] = "6.2";
-GUIDE_VERSION[HUNTER_MARKSMANSHIP] = "6.2";
-GUIDE_VERSION[HUNTER_SURVIVAL] = "6.2";
+-- Hunter Guide Interface Numbers
+GUIDE_VERSION[HUNTER_BEASTMASTERY] = 60200;
+GUIDE_VERSION[HUNTER_MARKSMANSHIP] = 60200;
+GUIDE_VERSION[HUNTER_SURVIVAL] = 60200;
 
--- Monk Guide Versions
-GUIDE_VERSION[MONK_WINDWALKER] = "6.1";
+-- Monk Guide Interface Numbers
+GUIDE_VERSION[MONK_WINDWALKER] = 60100;
 
--- Warlock Guide Versions
-GUIDE_VERSION[WARLOCK_DEMONOLOGY] = "6.1";
+-- Warlock Guide Interface Numbers
+GUIDE_VERSION[WARLOCK_DEMONOLOGY] = 60100;
+
+local function ConvertVersionNumber(versionNumber)
+    if versionNumber then
+        local majorVersion, minorVersion, revisionNumber;
+
+        majorVersion = tonumber(string.sub(versionNumber, 1, 1));
+        minorVersion = tonumber(string.sub(versionNumber, 2, 3));
+        revisionNumber = tonumber(string.sub(versionNumber, 4, 5));
+
+        if revisionNumber == 0 then
+            return string.join(".", tostring(majorVersion), tostring(minorVersion));
+        else
+            return string.join(".", tostring(majorVersion), tostring(minorVersion), tostring(revisionNumber));
+        end
+    else
+        return nil;
+    end
+end
 
 local function FormatVersion(versionNumber)
-	if versionNumber then
-		if versionNumber ~= CURRENT_WOW_VERSION then
-			return format("%s%s|r", COLOUR_CODE_INVALID, tostring(versionNumber));
-		else
-			return format("%s%s|r", COLOUR_CODE_VALID, tostring(versionNumber));
-		end
-	else
-		return nil;
-	end
+    if versionNumber then
+        local versionString = ConvertVersionNumber(versionNumber);
+
+        if versionNumber ~= CURRENT_WOW_VERSION then
+            return string.join("", COLOUR_CODE_INVALID, tostring(versionString), TEXT_COLOR_TAG_END);
+        else
+            return string.join("", COLOUR_CODE_VALID, tostring(versionString), TEXT_COLOR_TAG_END);
+        end
+    else
+        return nil;
+    end
 end
 
 local function FormatURL(URL)
-	local _, _, classID = UnitClass("player");
+    local _, _, classID = UnitClass("player");
 
-	return format("%s[|Hurl:%s|h%s|h]|r", CLASS_COLOUR_CODES[classID], URL, URL)
+    return string.join("", CLASS_COLOUR_CODES[classID], "[", "|Hurl:", URL, "|h", URL, "|h", "]", TEXT_COLOR_TAG_END);
 end
 
 function ScriptInfo:ShowScriptMessage(currentSpec)
-	if currentSpec then
-		local addonTitle = LunaEclipseScripts:AddonInfo();
-		local _, currentSpecName = GetSpecializationInfoByID(currentSpec);
-		local scriptGuideAuthor = GUIDE_AUTHOR[currentSpec];
-		local scriptGuideLink = GUIDE_LINK[currentSpec];
-		local scriptGuideVersion = GUIDE_VERSION[currentSpec];
-		local specMessage, specMessageExtra;
+    if currentSpec then
+        local addonTitle = LunaEclipseScripts:AddonInfo();
+        local _, currentSpecName = GetSpecializationInfoByID(currentSpec);
+        local scriptGuideAuthor = GUIDE_AUTHOR[currentSpec];
+        local scriptGuideLink = GUIDE_LINK[currentSpec];
+        local scriptGuideVersion = GUIDE_VERSION[currentSpec];
+        local specMessage, specMessageExtra;
 
-		if not scriptGuideAuthor and not scriptGuideLink then
-			if currentSpec ~= DRUID_BALANCE then
-				specMessage = format("%sThe %q rotation is not currently supported by this addon!|r", COLOUR_CODE_INVALID, currentSpecName);
-				specMessageExtra = "Sorry for any inconvience, please use the Default Ovale script package.";
-			else
-				specMessage = format("%sThe %q rotation is not currently supported by this addon!|r", COLOUR_CODE_INVALID, currentSpecName);
-				specMessageExtra = format("Sorry for any inconvience, please note that %q rotation support is not currently in Ovale.", currentSpecName);
-			end
+        if not scriptGuideAuthor and not scriptGuideLink then
+            if currentSpec ~= DRUID_BALANCE then
+                specMessage = string.format("%sThe %q rotation is not currently supported by this addon!|r", COLOUR_CODE_INVALID, currentSpecName);
+                specMessageExtra = "Sorry for any inconvience, please use the Default Ovale script package.";
+            else
+                specMessage = string.format("%sThe %q rotation is not currently supported by this addon!|r", COLOUR_CODE_INVALID, currentSpecName);
+                specMessageExtra = string.format("Sorry for any inconvience, please note that %q rotation support is not currently in Ovale.", currentSpecName);
+            end
 
-			LunaEclipseScripts:SendMessage(LEOS_DEBUG, true, false, addonTitle..":", specMessage, specMessageExtra);
-		else
-			specMessage = format("%sThe %q rotation is based on %s's guide:|r", COLOUR_CODE_MESSAGE, currentSpecName, scriptGuideAuthor);		
-			specGuideVersion = format("WoW Version of Script: %s", FormatVersion(scriptGuideVersion));
-			specMessageExtra = "Please check it out for information on best talent choices to work with this script!";
-			LunaEclipseScripts:SendMessage(LEOS_DEBUG, true, false, addonTitle..":", specMessage, FormatURL(scriptGuideLink), specGuideVersion, specMessageExtra);
-		end
-	end
+            LunaEclipseScripts:SendMessage(LEOS_DEBUG, true, false, addonTitle..":", specMessage, specMessageExtra);
+        else
+            specMessage = string.format("%sThe %q rotation is based on %s's guide:|r", COLOUR_CODE_MESSAGE, currentSpecName, scriptGuideAuthor);		
+            specGuideVersion = string.join(" ", "WoW Version of Script:", FormatVersion(scriptGuideVersion));
+            specMessageExtra = "Please check it out for information on best talent choices to work with this script!";
+            LunaEclipseScripts:SendMessage(LEOS_DEBUG, true, false, addonTitle..":", specMessage, FormatURL(scriptGuideLink), specGuideVersion, specMessageExtra);
+        end
+    end
 end

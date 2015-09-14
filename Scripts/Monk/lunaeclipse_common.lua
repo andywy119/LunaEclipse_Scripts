@@ -1,9 +1,9 @@
 local OvaleScripts = LunaEclipseScripts.Ovale.OvaleScripts;
 
 do
-	local name = "lunaeclipse_common";
-	local desc = "[6.1] LunaEclipse: Common Monk Functions";
-	local code = [[
+    local name = "lunaeclipse_common";
+    local desc = "[6.1] LunaEclipse: Common Monk Functions";
+    local code = [[
 # Monk rotation functions based on the guides on SummonStone:  http://summonstone.com/
 
 Include(ovale_monk_spells)
@@ -21,12 +21,12 @@ AddCheckBox(opt_xuen "Main Icons: Show Invoke Xuen" default)
 ###
 AddFunction Chi_Unactivated
 {
-	    MaxChi() - Chi()
+        MaxChi() - Chi()
 }
 
 AddFunction Energy_Starved
 {
-	    Energy() + EnergyRegenRate() < 50
+        Energy() + EnergyRegenRate() < 50
 }
 
 ###
@@ -34,24 +34,24 @@ AddFunction Energy_Starved
 ###
 AddFunction MeleeRange_Use
 {
-	if CheckBoxOn(opt_melee_range) and not target.InRange(jab) Texture(misc_arrowlup help=L(not_in_melee_range))
+    if CheckBoxOn(opt_melee_range) and not target.InRange(jab) Texture(misc_arrowlup help=L(not_in_melee_range))
 }
 
 AddFunction InterruptActions_Use
 {
-	if CheckBoxOn(opt_interrupt) and not target.IsFriend() and target.IsInterruptible()
-	{
-		if target.InRange(spear_hand_strike) Spell(spear_hand_strike)
-		if not target.Classification(worldboss)
-		{
-			if target.InRange(paralysis) Spell(paralysis)
-			Spell(arcane_torrent_chi)
-			if target.InRange(quaking_palm) Spell(quaking_palm)
-			Spell(war_stomp)
-		}
-	}
+    if CheckBoxOn(opt_interrupt) and not target.IsFriend() and target.IsInterruptible()
+    {
+        if target.InRange(spear_hand_strike) Spell(spear_hand_strike)
+        if not target.Classification(worldboss)
+        {
+            if target.InRange(paralysis) Spell(paralysis)
+            Spell(arcane_torrent_chi)
+            if target.InRange(quaking_palm) Spell(quaking_palm)
+            Spell(war_stomp)
+        }
+    }
 }
 ]];
 
-	OvaleScripts:RegisterScript("MONK", nil, name, desc, code, "include");
+    OvaleScripts:RegisterScript("MONK", nil, name, desc, code, "include");
 end

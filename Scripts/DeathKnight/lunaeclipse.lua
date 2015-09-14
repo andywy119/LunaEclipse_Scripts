@@ -4,7 +4,7 @@ do
     local name = "LunaEclipse";
     local desc = "[6.2] LunaEclipse: Skullflower's Death Knight Rotations";
     local code = [[
-# Death Knight rotation functions based on Skullflowers Guide:  http://summonstone.com/
+# Death Knight rotation functions based on Icy-Veins Guide approved by Tegu:  http://www.icy-veins.com/wow/class-guides
 
 Include(lunaeclipse_common)
 

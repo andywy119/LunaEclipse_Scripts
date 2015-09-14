@@ -4,7 +4,7 @@ do
     local name = "lunaeclipse_common";
     local desc = "[6.2] LunaEclipse: Common Death Knight Functions";
     local code = [[
-# Death Knight rotation functions based on Skullflowers Guide:  http://summonstone.com/
+# Death Knight rotation functions based on Icy-Veins Guide approved by Tegu:  http://www.icy-veins.com/wow/class-guides
 
 Include(ovale_deathknight_spells)
 
@@ -18,6 +18,19 @@ AddCheckBox(opt_unholy_blight "Main Icons: Show Unholy Blight")
 ###
 ### Disease Functions
 ###
+AddFunction Diseases_Active_All
+{
+        { 
+                Talent(necrotic_plague_talent) 
+            and target.DebuffPresent(necrotic_plague_debuff)
+        }
+     or { 
+                not Talent(necrotic_plague_talent) 
+            and target.DebuffPresent(blood_plague_debuff) 
+            and target.DebuffPresent(frost_fever_debuff) 
+        }
+}
+
 AddFunction Diseases_Expiring
 {
         { 
@@ -27,8 +40,15 @@ AddFunction Diseases_Expiring
      or { 
                 not Talent(necrotic_plague_talent) 
             and { 
-                        target.DebuffRemaining(blood_plague_debuff) <= GCD() 
-                     or target.DebuffRemaining(frost_fever_debuff) <= GCD()
+                        
+                        {
+                                target.DebuffPresent(blood_plague_debuff)
+                            and target.DebuffRemaining(blood_plague_debuff) <= GCD()
+                        } 
+                     or {
+                                target.DebuffPresent(frost_fever_debuff)
+                            and target.DebuffRemaining(frost_fever_debuff) <= GCD()
+                        } 
                 }
         }
 }
@@ -158,7 +178,7 @@ AddFunction HornOfWinter_Use
 AddFunction PlagueLeech_Use
 {
         Runes_Available_PlagueLeech()
-    and target.DiseasesTicking()
+    and Diseases_Active_All()
 }
 
 ###

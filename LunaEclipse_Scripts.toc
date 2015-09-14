@@ -2,7 +2,7 @@
 ## Notes: Scripts for Ovale that more closely follow community posted priorty's on websites instead of strict SimC profiles.
 ##
 ## Author: Adrian Hamilton (LunaEclipse)
-## Version: 6.2.7
+## Version: 6.2.8
 ##
 ## Interface: 60200
 ## Dependencies: Ovale
